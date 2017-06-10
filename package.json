@@ -12,6 +12,7 @@
     "cors": "*",
     "ejs": "*",
     "express": "*",
+    "express-ejs-layouts": "*",
     "jsonwebtoken": "*",
     "mongoose": "*",
     "nodemailer": "^3.1.4",
