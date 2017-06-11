@@ -6,24 +6,100 @@
   <div class="wrapper">
     <% include ../partials/header %>
 
-    <div class="container">
-      <div class="row">
+    <div class="container dashboard">
+      <div class="row profile">
         <div class="col-md-4">
-          <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Add Category</a></li>
-          <li><a href="#">Add Products</a></li>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">Product Orders</a></li>
-          </ul>
+          <div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="/img/user/binod.jpg" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						Binod Chaudhary
+					</div>
+					<div class="profile-usertitle-job">
+						Developer
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<a href="#" class="btn btn-success btn-sm">Wishlist</a>
+					<a href="#" class="btn btn-danger btn-sm">Cart</a>
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li>
+							<a href="/user/dashboard">
+							<i class="glyphicon glyphicon-dashboard"></i>
+							Overview </a>
+						</li>
+						<li>
+							<a href="/category/add">
+							<i class="glyphicon glyphicon-plus"></i>
+							Add Category </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-gift"></i>
+							Add Products </a>
+						</li>
+            <li>
+							<a href="#">
+							<i class="glyphicon glyphicon-list"></i>
+							My Products </a>
+						</li>
+            <li>
+							<a href="#">
+							<i class="glyphicon glyphicon-list-alt"></i>
+							Product Orders </a>
+						</li>
+            <li>
+							<a href="#">
+							<i class="glyphicon glyphicon-cog"></i>
+							Account Settings </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
         </div>
         <div class="col-md-8">
-          <%- body %>
+          <div class="profile-content">
+            <%- body %>
+           </div>
         </div>
       </div>
     </div>
 
-    <% include ../partials/footer %>
+    <!-- JQUERY LIBS -->
+    <script type="text/javascript"  src="/js/jquery.min.js"></script>
+    <!-- BOOTSTRAP -->
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <!-- FLEXSLIDER -->
+    <script type="text/javascript" src="/plugins/FlexSlider/jquery.flexslider-min.js"></script>
+    <!-- MAGNIFIC POPUP-->
+    <script type="text/javascript" src="/js/jquery.magnific-popup.min.js"></script>
+    <!-- MAGNIFIC POPUP  -->
+    <script type="text/javascript" src="/js/magnific-popup.min.js"></script>
+    <!-- slick-->
+    <script type="text/javascript" src="/js/slick.js"></script>
+    <!-- slick-slider-->
+    <script type="text/javascript" src="/js/slick-slider.js"></script>
+    <!-- plugins-->
+    <script type="text/javascript" src="/js/plugins.min.html"></script>
+    <!-- CUSTOM-->
+    <script type="text/javascript" src="/js/custom.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="respond.js"></script>
+    <script src="html5shiv.js"></script>
+    <![endif]-->
     <%- script %>
   </div>
   </body>

@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 
 const product = require('./routes/product');
 const user = require('./routes/user');
+const category = require('./routes/category');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(passport.session());
 app.use('/', require('./routes'));
 app.use('/product', product);
 app.use('/user', user);
+app.use('/category', category);
 
 
 app.use(cors());
