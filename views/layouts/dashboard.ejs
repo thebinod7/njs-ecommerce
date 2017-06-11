@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <% include ../partials/head %>
+
+  <body>
+  <div class="wrapper">
+    <% include ../partials/header %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Add Category</a></li>
+          <li><a href="#">Add Products</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Product Orders</a></li>
+          </ul>
+        </div>
+        <div class="col-md-8">
+          <%- body %>
+        </div>
+      </div>
+    </div>
+
+    <% include ../partials/footer %>
+    <%- script %>
+  </div>
+  </body>
+</html>
