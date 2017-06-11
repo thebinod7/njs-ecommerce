@@ -6,7 +6,8 @@ var expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-var product = require('./routes/product');
+const product = require('./routes/product');
+const user = require('./routes/user');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(passport.session());
 // ROUTES FOR OUR API
 app.use('/', require('./routes'));
 app.use('/product', product);
+app.use('/user', user);
 
 
 app.use(cors());
