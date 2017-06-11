@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get('/',function (req,res) {
     data = {
-        title: 'User Management System'
+        title: 'Home - Online Store'
     },
         res.render('index',data);
 });
