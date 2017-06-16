@@ -6,13 +6,16 @@ var expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/ecommerce');
+
 const product = require('./routes/product');
-const user = require('./routes/user');
+const users = require('./routes/users');
 const category = require('./routes/category');
 
 const app = express();
 
-const port = 4242;
+const port = 4321;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,7 +35,7 @@ app.use(passport.session());
 // ROUTES FOR OUR API
 app.use('/', require('./routes'));
 app.use('/product', product);
-app.use('/user', user);
+app.use('/users', users);
 app.use('/category', category);
 
 
