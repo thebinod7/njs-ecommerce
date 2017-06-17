@@ -19,14 +19,21 @@
                            <div class="title">
                              <h1>Welcome to <span>Login</span></h1>
                          </div>
+                         <% if(messages.error) { %>
+                         <div class="alert alert-danger" style="<%= messages.error ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.error ? messages.error[0] : '' %></strong></div>
+                         <% } %>
+
+                         <% if(messages.success) { %>
+                           <div class="alert alert-success" style="<%= messages.success ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.success ? messages.success[0] : '' %></strong></div>
+                           <% } %>
                          <div class="login-form">
-                             <form>
+                             <form id="loginFomr" method="Post" action="/users/login">
                                  <div class="form-details">
                                      <label class="user">
-                                         <input type="text" name="username" placeholder="Username" id="username">
+                                         <input type="email" required="required" name="email" placeholder="email" id="username">
                                      </label>
                                      <label class="pass">
-                                         <input type="password" name="passsword" placeholder="Password" id="password">
+                                         <input type="password"  required="required" name="password" placeholder="Password" id="password">
                                      </label>
                                  </div>
                                  <button type="submit" class="form-btn" onsubmit="">Login</button>

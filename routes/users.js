@@ -2,6 +2,8 @@ const express = require('express');
 const  router = express.Router();
 const Users= require('../models/users');
 const nodemailer = require('nodemailer');
+const session = require('express-session');
+const jwt = require('jsonwebtoken');
 
 const dashboardLayoutData = {
   layout: 'layouts/dashboard'
@@ -83,15 +85,20 @@ router.post('/signup',function (req,res) {
     Users.getUserByEmail(newUser.email,function (err,userEmail) {
         if(err) throw err;
         if(userEmail){
-            res.json({msg:"Email already exists"})
+          req.flash('error', 'Email already exits. Try new one or goto login!');
+          res.redirect('/users/signup');
+          return;
         }
         else {
             Users.addUser(newUser,function (err,doc) {
                 if(err){
-                    res.json({success : false, msg : 'Failed to add!'});
+                  req.flash('error', 'Oops Something went wrong! Please try again');
+                  res.redirect('/users/signup');
                 } else {
                     sendEmail(doc.email,doc.firstName,doc._id);
-                    res.json({success:true,msg:'User added successfully',result:doc})
+                    req.flash('success', 'Congratulations, Your account has been successfully created. Please Login to continue!');
+                    res.redirect('/users/login');
+                // /    res.json({success:true,msg:'User added successfully',result:doc})
                 }
             })
         }
@@ -106,19 +113,27 @@ router.post('/login',function (req,res) {
     Users.getUserByEmail(users.email, function (err, doc) {
         if(err) throw err;
         if(!doc){
-            req.flash('error', 'Email not found!!! Please contact site admin');
-            res.redirect('/admin');
+            req.flash('error', 'Email not registered!');
+            res.redirect('/users/login');
             return;
           //  return res.json({msg:'User does not exists.'});
         }
         Users.comparePassword(users.password,doc.password,function (err,isMatch) {
             if(err) throw err;
             if(isMatch){
-              res.json({msg:'Login Success', data : doc});
-              //  res.redirect('/profile');
+              req.session.sessionUser = {
+                  user : doc,
+                  datetime: Date.now()
+              }
+              const data = Object.assign(dashboardLayoutData, {
+                    title:  'User - Dashboard',
+                    user: doc
+                  });
+                  res.render('user/dashboard', data);
             }
             else {
-              res.json({msg:'Invalid email or password'});
+              req.flash('error', 'Wrong email or password!');
+              res.redirect('/users/login');
             }
         });
     });

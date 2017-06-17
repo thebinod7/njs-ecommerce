@@ -12,6 +12,8 @@
     "cors": "*",
     "ejs": "*",
     "express": "*",
+    "express-flash": "*",
+    "express-session":"*",
     "express-ejs-layouts": "*",
     "jsonwebtoken": "*",
     "mongoose": "*",

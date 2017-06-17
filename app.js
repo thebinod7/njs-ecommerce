@@ -5,6 +5,8 @@ const cors = require('cors');
 var expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const flash = require('express-flash');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ecommerce');
@@ -24,6 +26,11 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.set('layout', 'layouts/default');
 app.set('layout extractScripts', true);
+
+
+app.use(session({secret: 'helloworld12345678', resave:false, saveUninitialized:false, cookie: { maxAge: 6000000 }}));
+app.set('superSecret', 'abcd1234567890'); 
+app.use(flash());
 
 //Body parser middleware
 // parse application/x-www-form-urlencoded

@@ -18,21 +18,22 @@
                       <div class="login-inner">
                            <div class="title">
                                <h1>Welcome to <span>Signup</span></h1>
+                                 <div class="alert alert-danger" style="<%= messages.error ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.error ? messages.error[0] : '' %></strong></div>
                            </div>
                            <div class="login-form">
-                               <form>
+                               <form id="signupForm" method="Post" action="/users/signup">
                                    <div class="form-details">
                                        <label class="user">
-                                           <input type="text" name="username" placeholder="Full Name" id="username">
+                                           <input type="text" name="firstName" placeholder="Enter Firstname" id="firstname" required="required">
+                                       </label>
+                                       <label class="user">
+                                           <input type="text" name="lastName" placeholder="Enter Lastname" id="lastname" required="required">
                                        </label>
                                        <label class="mail">
-                                           <input type="email" name="mail" placeholder="Email Address" id="mail">
+                                           <input type="email" name="email" placeholder="Enter Email Address" id="email" required="required">
                                        </label>
                                        <label class="pass">
-                                           <input type="password" name="passsword" placeholder="Password" id="password">
-                                       </label>
-                                       <label class="pass">
-                                           <input type="password" name="passsword" placeholder="Confirm Password" id="password">
+                                           <input type="password" name="password" placeholder="Enter strong password" id="password" required="required">
                                        </label>
                                    </div>
                                    <button type="submit" class="form-btn" onsubmit="">Register</button>
