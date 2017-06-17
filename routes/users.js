@@ -4,6 +4,8 @@ const Users= require('../models/users');
 const nodemailer = require('nodemailer');
 const session = require('express-session');
 const jwt = require('jsonwebtoken');
+const auth = require('../utils/authenticate').auth;
+const loggedIn = require('../utils/authenticate').loggedIn;
 
 const dashboardLayoutData = {
   layout: 'layouts/dashboard'
@@ -66,11 +68,19 @@ router.get('/checkout',function (req,res) {
         res.render('user/checkout',data);
 });
 
-router.get('/dashboard',function (req,res) {
-  const data = Object.assign(dashboardLayoutData, {
-        title:  'User - Dashboard'
-      });
-      res.render('user/dashboard', data);
+router.get('/dashboard',auth,function (req,res) {
+  console.log(req.session);
+  Users.findById(req.session.userId, function(err, doc) {
+      if(err){
+          res.json({success : false, msg : 'User not found!'});
+      } else {
+        const data = Object.assign(dashboardLayoutData, {
+              title:  'User - Dashboard',
+              user: doc
+            });
+            res.render('user/dashboard', data);
+      }
+  });
 });
 
 router.post('/signup',function (req,res) {
@@ -121,15 +131,10 @@ router.post('/login',function (req,res) {
         Users.comparePassword(users.password,doc.password,function (err,isMatch) {
             if(err) throw err;
             if(isMatch){
-              req.session.sessionUser = {
-                  user : doc,
-                  datetime: Date.now()
-              }
-              const data = Object.assign(dashboardLayoutData, {
-                    title:  'User - Dashboard',
-                    user: doc
-                  });
-                  res.render('user/dashboard', data);
+              req.session.userId = doc._id;
+              req.session.user = doc;
+              req.session.loggedIn = true;
+              res.redirect('/users/dashboard');
             }
             else {
               req.flash('error', 'Wrong email or password!');

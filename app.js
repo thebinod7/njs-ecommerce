@@ -29,8 +29,13 @@ app.set('layout extractScripts', true);
 
 
 app.use(session({secret: 'helloworld12345678', resave:false, saveUninitialized:false, cookie: { maxAge: 6000000 }}));
-app.set('superSecret', 'abcd1234567890'); 
 app.use(flash());
+
+app.use(function(req, res, next){
+  res.locals.user = req.session.user;
+  res.locals.loggedIn = req.session.loggedIn;
+  next();
+});
 
 //Body parser middleware
 // parse application/x-www-form-urlencoded
