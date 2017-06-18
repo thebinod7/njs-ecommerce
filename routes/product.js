@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Category = require('../models/category');
+const auth = require('../utils/authenticate').auth;
 
 const dashboardLayoutData = {
   layout: 'layouts/dashboard'
@@ -19,11 +21,18 @@ router.get('/listing',function (req,res) {
         res.render('product/listing',data);
 });
 
-router.get('/add',function (req,res) {
-  const data = Object.assign(dashboardLayoutData, {
-        title:  'User - Dashboard'
-      });
-      res.render('product/add', data);
+router.get('/add',auth,function (req,res) {
+  Category.find({}, function(err, docs) {
+        if(err){
+            res.json({success : false, msg : 'Failed to list!'});
+        } else {
+          const data = Object.assign(dashboardLayoutData, {
+                title:  'User - Dashboard',
+                category: docs
+              });
+              res.render('product/add', data);
+        }
+    });
 });
 
 module.exports = router;

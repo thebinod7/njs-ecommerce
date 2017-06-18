@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+
 <h3>Add Category</h3>
 <% if(messages.error) { %>
 <div class="alert alert-danger" style="<%= messages.error ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.error ? messages.error[0] : '' %></strong></div>
@@ -42,20 +44,29 @@
         <h4 class="modal-title">Category List</h4>
       </div>
       <div class="modal-body">
-        <div class="shopping-cart-block">
-            <ul class="title clearfix">
-                <li class="col-md-5 col-sm-5 col-xs-4"><strong>Category Name</strong></li>
-                <li class="col-md-5 col-sm-5 col-xs-4"><strong>Category Description</strong></li>
-                <li class="col-md-2 col-sm-2 col-xs-4"><strong>Action</strong></li>
-            </ul>
-            <ul class="shopping-cart-cd clearfix">
-                <li class="col-md-5 col-sm-5 col-xs-4 cd-shopping">
-                  Category Name
-                </li>
-                <li class="col-md-5 col-sm-5 col-xs-4">Descripion text</li>
-                <li class="col-md-2 col-sm-2 col-xs-4"><a href="#">X</a></li>
-            </ul>
-        </div>
+
+                        <table class="table table-responsive table-bordered" style="width:100%" id="category-list-table">
+                            <thead>
+                            <tr>
+                                <td>S.N.</td>
+                                <td>Category Name</td>
+                                <td>Category Description</td>
+                                <td>Action</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% category.forEach(function(category, i) { %>
+                            <tr>
+                                <td><%= i + 1 %></td>
+                                <td><%= category.categoryName ? category.categoryName : 'No data' %></td>
+                                <td><%= category.categoryDesc ? category.categoryDesc : 'Not Set' %></td>
+                                <td>
+                                  <a href="/category/delete/<%= category._id %>"><button class="btn btn-default btn-xs" data-title="Delete"><span class="glyphicon glyphicon-remove"></span></button></a>
+                              </td>
+                            </tr>
+                              <% }); %>
+                            </tbody>
+                        </table>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -64,3 +75,11 @@
 
   </div>
 </div>
+
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#category-list-table').DataTable();
+    });
+</script>
