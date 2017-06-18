@@ -39,7 +39,7 @@ router.post('/save', (req, res) => {
   });
 });
 
-router.get('/delete/:id',function (req,res) {
+router.get('/delete/:id', (req,res) => {
   Category.remove({ _id: req.params.id }, function(err) {
   if (err) throw err;
 
