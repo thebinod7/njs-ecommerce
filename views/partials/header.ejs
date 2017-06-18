@@ -32,10 +32,17 @@
                     </ul><!--topbar-left-->
                 </div>
                 <div class="col-sm-6">
+                    <% if (!locals.user) { %>
                     <ul class="list-inline topbar-right pull-right">
                         <li><a href="#">Wishlist (0)</a></li>
                         <li><a href="/users/login">Login</a> | <a href="/users/signup">Signup</a></li>
                     </ul>
+                    <% } else { %>
+                    <ul class="list-inline topbar-right pull-right">
+                        <li><a href="#">Wishlist (0)</a></li>
+                        <li><a href="/users/dashboard">Hi, <%= locals.user.firstName %></a></li>
+                    </ul>
+                    <% } %>
                 </div>
             </div>
         </div><!--container-->

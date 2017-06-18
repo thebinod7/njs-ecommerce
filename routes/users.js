@@ -69,7 +69,6 @@ router.get('/checkout',function (req,res) {
 });
 
 router.get('/dashboard',auth,function (req,res) {
-  console.log(req.session);
   Users.findById(req.session.userId, function(err, doc) {
       if(err){
           res.json({success : false, msg : 'User not found!'});
@@ -144,6 +143,13 @@ router.post('/login',function (req,res) {
     });
 });
 
+router.get('/logout', (req, res) => {
+  req.session.userId = null;
+  req.session.loggedIn = false;
+  req.session.user = null;
+  res.redirect('/users/login');
+});
+
 router.get('/profile/:id',function (req,res) {
     Users.findById(req.params.id, function(err, doc) {
         if(err){
@@ -166,7 +172,7 @@ router.post('/update/:id',function (req,res) {
             doc.phone = req.body.phone || doc.phone;
             doc.save(function (err, data) {
                 if (err) {
-                    res.json({success:true,result:data,msg:'Unable to updated profile! Please try again'});
+                    res.json({success:true,result:data,msg:'Unable to update profile! Please try again'});
                 }
                 res.json({msg:'Profile updated successfully!', success:true,result:data});
             })
