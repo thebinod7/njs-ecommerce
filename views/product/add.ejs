@@ -1,15 +1,16 @@
 <h3>Add Product</h3>
 <br>
-<form>
+<form id="frmAddProducts" method="Post" action="/product/save">
   <div class="form-group">
-    <label for="pictures">Pictures:</label>
-    <input type="file" class="form-control" id="pictures" multiple>
+    <label for="photos-uploader">Upload Photos:</label>
+    <div id="photos-uploader" action="/product/uploadImg" class="dropzone"></div>
+    <input type="hidden" class="images-input" name="images" value="" />
   </div>
   <div class="form-group">
     <div class="row">
       <div class="col-sm-6">
         <label for="category">Category:</label>
-        <select class="form-control" required="required"  id="category" name="subCategory">
+        <select class="form-control" required="required"  id="category" name="category">
           <option>--Select--</option>
           <% category.forEach(function (category) { %>
               <option value="<%= category._id %>"> <%= category.categoryName %> <%})%> </option>
@@ -17,7 +18,7 @@
       </div>
       <div class="col-sm-6">
         <label for="subCategory">Sub-Category:</label>
-        <select class="form-control" required="required"  id="subCategory" name="subCategory">
+        <select class="form-control" required="required"  id="subCategory">
           <option>--Select--</option>
           <option>1</option>
           <option>2</option>
@@ -43,7 +44,7 @@
     <input type="text" class="form-control" id="seller" name="seller">
   </div>
   <div class="form-group">
-    <label for="brand">Size:</label><br>
+    <label for="size">Size:</label><br>
     <input type="hidden" id="size" name="size" />
     <label class="checkbox-inline size-check"><input type="checkbox" value="s">S</label>
     <label class="checkbox-inline size-check"><input type="checkbox" value="m">M</label>
@@ -51,8 +52,58 @@
     <label class="checkbox-inline size-check"><input type="checkbox" value="xl">XL</label>
   </div>
   <div class="form-group">
-    <label for="desc">Description:</label>
-    <textarea class="form-control" rows="4" id="desc" required="required"></textarea>
+    <label for="productDesc">Description:</label>
+    <textarea class="form-control" rows="4" name="productDesc" id="productDesc" required="required"></textarea>
   </div>
-  <button type="button" class="btn btn-success">Submit</button>
+  <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
 </form>
+
+<!-- Dropzone-->
+<script type="text/javascript" src="/js/dropzone.js"></script>
+<script>
+$(document).ready(function() {
+    const images = [];
+
+    Dropzone.options.photosUploader = {
+      addRemoveLinks: true,
+      maxFilesize: 5, // MB
+      dictDefaultMessage: 'Drag an image here to upload, or click to select one',
+      acceptedFiles: 'image/*',
+      init: function () {
+
+        this.on("success", function (file, response) {
+          $('.dz-preview').each(function() {
+            if($(this).data('file').name === file.name) {
+              const newFile = Object.assign({}, file, { name: response.result })
+              $(this).data('file', newFile)
+            }
+          });
+        });
+
+        this.on("addedfile", function (file) {
+          $('.dz-preview:last-of-type').data('file', file);
+        });
+      }
+    }
+
+    $('#btnSubmit').on('click', function(e) {
+    const size = [];
+    const currentQueue = [];
+
+    $.each($("input.size-check:checked"), function() {
+      size.push($(this).val());
+    });
+
+    $('input[name=size]').val(size.join(','));
+
+    $('.dz-preview').each( function(){
+      currentQueue.push($(this).data('file').name);
+    });
+
+    $('.images-input').val(currentQueue.join(','));
+    $('#frmAddProducts').submit();
+
+  });
+
+});
+</script>

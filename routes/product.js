@@ -35,4 +35,8 @@ router.get('/add',auth,function (req,res) {
     });
 });
 
+router.post('/save',function(req,res){
+  console.log(req.body);
+});
+
 module.exports = router;
