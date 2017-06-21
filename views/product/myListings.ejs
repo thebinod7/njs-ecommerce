@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+<h3>My Products</h3>
+<hr>
+<% if(messages.error) { %>
+<div class="alert alert-danger" style="<%= messages.error ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.error ? messages.error[0] : '' %></strong></div>
+<% } %>
+
+<% if(messages.success) { %>
+  <div class="alert alert-success" style="<%= messages.success ? 'margin-top:20px;' : 'display: none' %>"><strong><%= messages.success ? messages.success[0] : '' %></strong></div>
+  <% } %>
+
+  <div class="row">
+    <table class="table table-responsive table-bordered" style="width:100%" id="product-list-table">
+        <thead>
+        <tr>
+            <td>S.N.</td>
+            <td>Title</td>
+            <td>Price</td>
+            <td>Brand</td>
+            <td>Seller</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+        <% products.forEach(function(p, i) { %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td><%= p.title ? p.title : 'Not Set' %></td>
+            <td><%= p.price ? p.price : 'Not Set' %></td>
+            <td><%= p.brand ? p.brand : 'Not Set' %></td>
+            <td><%= p.seller ? p.seller : 'Not Set' %></td>
+            <td>
+              <a href="/product/delete/<%= p._id %>"><button class="btn btn-default btn-xs" data-title="Delete"><span class="glyphicon glyphicon-remove"></span></button></a>
+                <a href="/product/edit/<%= p._id %>"><button class="btn btn-default btn-xs" data-title="Edit"><span class="glyphicon glyphicon-pencil"></span></button></a>
+          </td>
+        </tr>
+          <% }); %>
+        </tbody>
+    </table>
+  </div>
+
+
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#product-list-table').DataTable();
+      });
+  </script>

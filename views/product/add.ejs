@@ -9,8 +9,8 @@
   <div class="form-group">
     <div class="row">
       <div class="col-sm-6">
-        <label for="category">Category:</label>
-        <select class="form-control" required="required"  id="category" name="category">
+        <label for="categoryId">Category:</label>
+        <select class="form-control" required="required"  id="categoryId" name="categoryId">
           <option>--Select--</option>
           <% category.forEach(function (category) { %>
               <option value="<%= category._id %>"> <%= category.categoryName %> <%})%> </option>
@@ -46,10 +46,10 @@
   <div class="form-group">
     <label for="size">Size:</label><br>
     <input type="hidden" id="size" name="size" />
-    <label class="checkbox-inline size-check"><input type="checkbox" value="s">S</label>
-    <label class="checkbox-inline size-check"><input type="checkbox" value="m">M</label>
-    <label class="checkbox-inline size-check"><input type="checkbox" value="l">L</label>
-    <label class="checkbox-inline size-check"><input type="checkbox" value="xl">XL</label>
+    <label class="checkbox-inline"><input type="checkbox" class="size-check" value="s">S</label>
+    <label class="checkbox-inline"><input type="checkbox" class="size-check" value="m">M</label>
+    <label class="checkbox-inline"><input type="checkbox" class="size-check" value="l">L</label>
+    <label class="checkbox-inline"><input type="checkbox" class="size-check" value="xl">XL</label>
   </div>
   <div class="form-group">
     <label for="productDesc">Description:</label>
@@ -92,6 +92,7 @@ $(document).ready(function() {
 
     $.each($("input.size-check:checked"), function() {
       size.push($(this).val());
+      console.log('Hello');
     });
 
     $('input[name=size]').val(size.join(','));
