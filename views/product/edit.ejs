@@ -1,0 +1,122 @@
+<h3>Edit Product</h3>
+<br>
+<form id="frmUpdateProduct" method="Post" action="/product/save">
+  <div class="form-group">
+    <label for="photos-uploader">Upload Photos:</label>
+    <div id="photos-uploader" action="/product/uploadImg" class="dropzone"></div>
+    <input type="hidden" name="featuredImg" id="feature-img-hidden" value="<%= product.featuredImg %>" />
+    <input type="hidden" class="images-input" name="images" value="<%= product.images %>" />
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-6">
+        <label for="categoryId">Category:</label>
+        <select class="form-control" required="required"  id="categoryId" name="categoryId">
+          <option>--Select--</option>
+
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <label for="subCategory">Sub-Category:</label>
+        <select class="form-control" required="required"  id="subCategory">
+          <option>--Select--</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" value="<%= product.title %>" id="title" name="title" required="required">
+  </div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input type="text" class="form-control" value="<%= product.price %>" id="price" name="price" required="required">
+  </div>
+  <div class="form-group">
+    <label for="brand">Brand:</label>
+    <input type="text" class="form-control" value="<%= product.brand %>" id="brand" name="brand" required="required">
+  </div>
+  <div class="form-group">
+    <label for="seller">Seller:</label>
+    <input type="text" class="form-control" value="<%= product.seller %>" id="seller" name="seller">
+  </div>
+  <div class="form-group">
+    <label for="size">Size:</label><br>
+    <input type="hidden" id="size" name="size" />
+    <label class="checkbox-inline"><input type="checkbox" <%= product.size.indexOf( "s")> -1 ? 'checked' : '' %> class="size-check" value="s">S</label>
+    <label class="checkbox-inline"><input type="checkbox" <%= product.size.indexOf( "m")> -1 ? 'checked' : '' %> class="size-check" value="m">M</label>
+    <label class="checkbox-inline"><input type="checkbox" <%= product.size.indexOf( "l")> -1 ? 'checked' : '' %> class="size-check" value="l">L</label>
+    <label class="checkbox-inline"><input type="checkbox" <%= product.size.indexOf( "xl")> -1 ? 'checked' : '' %> class="size-check" value="xl">XL</label>
+  </div>
+  <div class="form-group">
+    <label for="productDesc">Description:</label>
+    <textarea class="form-control" rows="4" name="productDesc" id="productDesc" required="required"><%= product.productDesc %></textarea>
+  </div>
+  <button type="button" id="update-btn" class="btn btn-success">Update</button>
+</form>
+
+<!-- Dropzone-->
+<script type="text/javascript" src="/js/dropzone.js"></script>
+<script>
+$(document).ready(function () {
+
+  const images = $('.images-input').val().split(',');
+
+  Dropzone.options.photosUploader = {
+    addRemoveLinks: true,
+    init: function () {
+      const myDropzone = Dropzone.forElement("#photos-uploader");
+
+      const featuredImg = $('#feature-img-hidden').val();
+
+      createMockFileForDropzone(myDropzone, featuredImg);
+
+      if($('.images-input').val().length) {
+        images.forEach((img) => {
+          if(img.length) {
+            createMockFileForDropzone(myDropzone, img);
+          }
+        });
+      }
+      this.on("success", function (file, response) {
+        $('.dz-preview').each(function() {
+          if($(this).data('file').name === file.name) {
+            const newFile = Object.assign({}, file, { name: response.result })
+            $(this).data('file', newFile)
+          }
+        });
+      });
+
+      this.on("addedfile", function (file, response) {
+        $('.dz-preview:last-of-type').data('file', file);
+      });
+    },
+
+    removedfile: function(file) {
+      file.previewElement.remove();
+    }
+  }
+
+  $('#update-btn').on('click', function(e) {
+    const size = [];
+    const currentQueue = [];
+
+    $.each($("input.size-check:checked"), function() {
+      size.push($(this).val());
+    });
+    $('input[name=size]').val(size.join(','));
+
+    $('.dz-preview').each( function(){
+      currentQueue.push($(this).data('file').name);
+    });
+
+    $('.images-input').val(currentQueue.join(','));
+
+    $('#frmUpdateProduct').submit();
+  });
+
+});
+</script>

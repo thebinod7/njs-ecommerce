@@ -56,20 +56,6 @@ router.get('/add',auth,function (req,res) {
     });
 });
 
-router.get('/my-listings',auth,function (req,res) {
-  Product.find({userId : req.session.userId }, function(err, docs) {
-        if(err){
-            res.json({success : false, msg : 'Failed to list!'});
-        } else {
-          const data = Object.assign(dashboardLayoutData, {
-                title:  'User - Dashboard',
-                products: docs
-              });
-              res.render('product/myListings', data);
-        }
-    });
-});
-
 router.post('/save',function(req,res){
   const images = req.body.images.split(',');
   const featuredImg = images[0];
@@ -91,6 +77,47 @@ router.post('/save',function(req,res){
         req.flash('success', 'SUCCESS! Product added successfully!');
         res.redirect('/product/my-listings');
       }
+  });
+});
+
+router.get('/my-listings',auth,function (req,res) {
+  Product.find({userId : req.session.userId }, function(err, docs) {
+        if(err){
+            res.json({success : false, msg : 'Failed to list!'});
+        } else {
+          const data = Object.assign(dashboardLayoutData, {
+                title:  'User - Dashboard',
+                products: docs
+              });
+              res.render('product/myListings', data);
+        }
+    });
+});
+
+router.get('/edit/:id',auth,function (req,res) {
+  Product
+    .findById(req.params.id)
+    .populate('categoryId')
+    .exec(function(err, doc) {
+        if(err){
+            res.json({success : false, msg : 'Failed to list!'});
+        } else {
+          const data = Object.assign(dashboardLayoutData, {
+                title:  'User - Dashboard',
+                product: doc
+              });
+              console.log(data);
+              res.render('product/edit', data);
+        }
+    });
+});
+
+router.get('/delete/:id',function (req,res) {
+  Product.remove({ _id: req.params.id }, function(err) {
+    if (err) throw err;
+
+    req.flash('success', 'SUCCESS! Product deleted successfully!');
+    res.redirect('/product/my-listings');
   });
 });
 
