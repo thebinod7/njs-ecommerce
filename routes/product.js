@@ -106,8 +106,27 @@ router.get('/edit/:id',auth,function (req,res) {
                 title:  'User - Dashboard',
                 product: doc
               });
-              console.log(data);
               res.render('product/edit', data);
+        }
+    });
+});
+
+router.get('/view/:id',function (req,res) {
+  Product
+    .findById(req.params.id)
+    .populate('categoryId')
+    .exec(function(err, doc) {
+        if(err){
+            res.json({success : false, msg : 'Failed to list!'});
+        } else {
+          const images = [doc.featuredImg].concat(doc.images.filter(i => i.length));
+          const data = {
+                title:  'Product Details',
+                product: doc,
+                images
+              };
+              console.log(data.product);
+              res.render('product/details', data);
         }
     });
 });

@@ -104,3 +104,6 @@
 .dashboard {
    background: #F1F3FA;
 }
+.product-grid-img-thumbnail .primary-img {
+    height: 200px;
+}

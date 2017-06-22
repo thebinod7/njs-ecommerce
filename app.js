@@ -28,7 +28,7 @@ app.set('layout', 'layouts/default');
 app.set('layout extractScripts', true);
 
 
-app.use(session({secret: 'helloworld12345678', resave:false, saveUninitialized:false, cookie: { maxAge: 6000000 }}));
+app.use(session({secret: 'helloworld12345678', resave:false, saveUninitialized:false, cookie: { maxAge: 60000000 }}));
 app.use(flash());
 
 app.use(function(req, res, next){

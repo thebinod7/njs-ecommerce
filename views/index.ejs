@@ -42,10 +42,13 @@
             <section class="home-main-contant-style2 dip-bg-style dip-style bg-white">
                 <div class="container">
                     <div class="widget">
-                        <h6 class="text-uppercase bottom-line">New Products</h6>
+                        <h6 class="text-uppercase bottom-line">Latest Products</h6>
                     </div>
                     <div class="row">
                         <div class="new-product slider">
+                              <%
+                                products.forEach(function(p, a) {
+                              %>
                             <div class="col-md-4 item">
                                 <div class="products grid-product">
                                     <div class="product-grid-inner">
@@ -53,16 +56,15 @@
                                             <ul class="product-labels">
                                                 <li>Sale</li>
                                             </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
+                                            <a href="/product/view/<%= p._id %>" class="product-grid-img-thumbnail">
+                                                <img src="<%= p.featuredImg ? '/assets/img/uploads/' + p.featuredImg : '/img/placeholder.png' %>" alt="img" class="img-responsive primary-img" />
                                             </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
+                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="/users/cart">Add to Cart</a></div>
                                         </div>
 
                                         <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
+                                            <h4><a class="p-grid-title" href="/product/details"><%= p.title %></a></h4>
+                                            <span class="price"> NRs. <span class="special-price"><%= p.price %></span></span>
                                             <ul class="list-inline add-to-wishlist">
                                                 <li class="product-wishlist">
                                                     <i class="fa fa-heart"></i>
@@ -73,141 +75,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 item">
-                                <div class="products grid-product">
-                                    <div class="product-grid-inner">
-                                        <div class="product-grid-img">
-                                            <ul class="product-labels">
-                                                <li>Sale</li>
-                                            </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-                                            </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
-                                        </div>
-
-                                        <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-                                            <ul class="list-inline add-to-wishlist">
-                                                <li class="product-wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                    <a href="#">Add to Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 item">
-                                <div class="products grid-product">
-                                    <div class="product-grid-inner">
-                                        <div class="product-grid-img">
-                                            <ul class="product-labels">
-                                                <li>Sale</li>
-                                            </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-                                            </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
-                                        </div>
-
-                                        <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-                                            <ul class="list-inline add-to-wishlist">
-                                                <li class="product-wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                    <a href="#">Add to Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 item">
-                                <div class="products grid-product">
-                                    <div class="product-grid-inner">
-                                        <div class="product-grid-img">
-                                            <ul class="product-labels">
-                                                <li>Sale</li>
-                                            </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-                                            </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
-                                        </div>
-
-                                        <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-                                            <ul class="list-inline add-to-wishlist">
-                                                <li class="product-wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                    <a href="#">Add to Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 item">
-                                <div class="products grid-product">
-                                    <div class="product-grid-inner">
-                                        <div class="product-grid-img">
-                                            <ul class="product-labels">
-                                                <li>Sale</li>
-                                            </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-                                            </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
-                                        </div>
-
-                                        <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-                                            <ul class="list-inline add-to-wishlist">
-                                                <li class="product-wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                    <a href="#">Add to Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 item">
-                                <div class="products grid-product">
-                                    <div class="product-grid-inner">
-                                        <div class="product-grid-img">
-                                            <ul class="product-labels">
-                                                <li>Sale</li>
-                                            </ul>
-                                            <a href="/product/details" class="product-grid-img-thumbnail">
-                                                <img src="img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-                                                <img src="img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-                                            </a>
-                                            <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="#">Add to Cart</a></div>
-                                        </div>
-
-                                        <div class="product-grid-caption text-center">
-                                            <h4><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h4>
-                                            <span class="price"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-                                            <ul class="list-inline add-to-wishlist">
-                                                <li class="product-wishlist">
-                                                    <i class="fa fa-heart"></i>
-                                                    <a href="#">Add to Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                              <% }); %>
                         </div>
                     </div>
                 </div>

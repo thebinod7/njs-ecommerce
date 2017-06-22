@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h1 class="title"><span>Shop Detail</span></h1>
+                <h1 class="title"><span>Product Details</span></h1>
                 </div>
             </div>
         </div>
@@ -23,36 +23,13 @@
                             <div class="flexslider" id="main_slider">
                                 <div class="flex-viewport">
                                     <ul class="slides">
+                                        <% images.forEach((img, k) => { %>
                                         <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/products/pro1.jpg" title="">
-                                                <img title="" src="/img/products/pro1.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
+                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/assets/img/uploads/<%= img %>" title="">
+                                                <img title="Product" src="/assets/img/uploads/<%= img %>" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
                                             </a>
                                         </li>
-                                        <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/products/pro2.jpg" title="">
-                                                <img title="" src="/img/products/pro2.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
-                                            </a>
-                                        </li>
-                                        <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/products/pro3.jpg" title="">
-                                                <img title="" src="/img/products/pro3.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
-                                            </a>
-                                        </li>
-                                        <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/portfolio/4.jpg" title="">
-                                                <img title="" src="/img/portfolio/4.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
-                                            </a>
-                                        </li>
-                                        <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/products/pro5.jpg" title="">
-                                                <img title="" src="/img/products/pro5.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
-                                            </a>
-                                        </li>
-                                        <li itemtype="https://schema.org/Product" itemscope="">
-                                            <a class="cd-lightbox-image cd-lightbox-type-image" href="/img/products/pro6.jpg" title="">
-                                                <img title="" src="/img/products/pro6.jpg" alt="" ><i itemprop="image" class="fa fa-fw fa-expand"></i>
-                                            </a>
-                                        </li>
+                                        <% }); %>
                                     </ul>
                                 </div>
                             </div>
@@ -61,26 +38,11 @@
                         <div class="flexslider" id="main_thumbs">
                             <div class="flex-viewport">
                                 <ul class="slides">
+                                  <% images.forEach((img, k) => { %>
                                     <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro1.jpg">
+                                        <img title="" alt="" src="/assets/img/uploads/<%= img %>">
                                     </li>
-                                    <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro2.jpg">
-                                    </li>
-                                    <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro3.jpg">
-                                    </li>
-                                    <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro4.jpg">
-                                    </li>
-                                    <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro5.jpg">
-                                    </li>
-                                    <li itemtype="https://schema.org/Product" itemscope="">
-                                        <img title="" alt="" src="/img/products/pro6.jpg">
-                                    </li>
-
-
+                                    <% }); %>
                                 </ul>
                             </div>
                         </div>
@@ -93,7 +55,7 @@
             <!--Image Block-->
             <div class="col-md-6 col-sm-6 col-sm-12">
                 <div class="shop-product-heading">
-                    <h2>Printed Summer Dress</h2>
+                    <h2><%= product.title %></h2>
                 </div>
 
                 <ul class="list-inline product-ratings mb30">
@@ -108,11 +70,10 @@
                 </ul>
 
 
-                <p class="mb15">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. fringilla viverra.</p><br>
+                <p class="mb15"><%= product.productDesc %></p><br>
 
                 <ul class="list-inline shop-product-prices mb30">
-                    <li class="shop-red">$57.00</li>
-                    <li class="line-through">$70.00</li>
+                    <li class="shop-red">Nrs. <%= product.price %></li>
                 </ul>
 
                 <h3 class="shop-product-title">Size</h3>
@@ -186,7 +147,6 @@
                                     <ul class="nav nav-tabs navbar-right">
                                         <li class="active"><a data-toggle="tab" href="#description">Description</a></li>
                                         <li><a data-toggle="tab" href="#size">Size</a></li>
-                                          <li><a data-toggle="tab" href="#custom">Custom</a></li>
                                     </ul>
                                 </div>
                         </div>
@@ -194,9 +154,7 @@
                     <div class="tab-content">
                  <!-- Description -->
                 <div class="tab-pane fade in active" id="description">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. Morbi mollis mollis pellentesque. Aenean vitae erat velit. Maecenas urna sapien, dignissim a augue vitae, porttitor luctus urna.
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. Morbi mollis mollis pellentesque. Aenean vitae erat velit. Maecenas urna sapien, dignissim a augue vitae, porttitor luctus urna.</p><br>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam justo et nibh venenatis aliquet. Morbi mollis mollis pellentesque. Aenean vitae erat velit. Maecenas urna sapien, dignissim a augue vitae, porttitor luctus urna.</p>
+                            <p><%= product.productDesc %></p>
                           </div>
                 <!-- End Description -->
 
@@ -221,18 +179,7 @@
 
                 <!-- Description -->
                 <div class="tab-pane media-block" id="custom">
-                    <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="video-block">
-                                        <iframe width="540" height="360" src="https://www.youtube.com/embed/Vpg9yizPP_g"></iframe>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="video-block">
-                                        <iframe width="540" height="360" src="https://www.youtube.com/embed/Vpg9yizPP_g"></iframe>
-                                    </div>
-                                </div>
-                    </div>
+
                 <!-- End Description -->
                     </div>
         </div>
