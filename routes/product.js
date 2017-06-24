@@ -9,6 +9,11 @@ const dashboardLayoutData = {
   layout: 'layouts/dashboard'
 };
 
+const categoryList = function() {
+  return Category.find({
+  });
+};
+
 var storage = multer.diskStorage({
   destination: './public/assets/img/uploads/',
   filename (req, file, cb) {
@@ -36,10 +41,25 @@ router.get('/details',function (req,res) {
 });
 
 router.get('/listing',function (req,res) {
-    data = {
-        title: 'Online Store - Shop'
-    },
-        res.render('product/listing',data);
+  Product
+  .find()
+  .exec(function(err, docs) {
+        if(err){
+            res.json({success : false, msg : 'Failed to list!'});
+        } else {
+          categoryList()
+          .exec(function(err, categories) {
+          data = {
+                title: 'Shop - Online Store',
+                products: docs,
+                cats : categories,
+                count : docs.length
+            },
+            console.log(data);
+            res.render('product/listing',data);
+          })
+        }
+      });
 });
 
 router.get('/add',auth,function (req,res) {

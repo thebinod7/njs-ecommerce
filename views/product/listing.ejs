@@ -20,11 +20,11 @@
                     <div class="widget mb30">
                         <h6 class="text-uppercase bottom-line">Categories</h6>
                         <ul class="icons-list">
-                            <li><a href="#">Fashion <span class="pull-right">12</span></a></li>
-                            <li><a href="#">Blogger <span class="pull-right">11</span></a></li>
-                            <li><a href="#">Sport <span class="pull-right">10</span></a></li>
-                            <li><a href="#">Photography <span class="pull-right">14</span></a></li>
-                            <li><a href="#">Popular <span class="pull-right">15</span></a></li>
+                          <%
+                            cats.forEach(function(c,a){
+                          %>
+                            <li><a href="/category/<%= c._id %>"><%= c.categoryName %> <span class="pull-right">view</span></a></li>
+                          <% }); %>
                         </ul>
                     </div>
                     <!-- END CATEGORIES WIDGET -->
@@ -72,58 +72,21 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <!-- END SIDE-BAR PRODUCT WIDGET -->
-
-                    <!-- SIDE-BAR PRODUCT WIDGET -->
-                    <div class="">
-                        <div class="widget mb30">
-                            <h6 class="text-uppercase bottom-line">Best Sellers</h6>
-                        </div>
                         <div class="small-thumb-proudct mb30">
                             <div class="thumb-product">
-                                <img class="thumb-product-img img-responsive" src="/img/products/pro4.jpg" alt="">
+                                <img class="thumb-product-img img-responsive" src="/img/products/pro3.jpg" alt="">
                                 <div class="thumb-product-inner">
                                     <h6><a href="/product/details">Printed Su..</a></h6>
                                     <span class="thumb-product-cat">Fashion</span>
                                 </div>
                                 <ul class="list-inline overflow-h">
-                                    <li class="thumb-product-price line-through">$95.00</li>
-                                    <li class="thumb-product-price">$75.00</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="small-thumb-proudct mb30">
-                            <div class="thumb-product">
-                                <img class="thumb-product-img img-responsive" src="/img/products/pro5.jpg" alt="">
-                                <div class="thumb-product-inner">
-                                    <h6><a href="/product/details">Printed Su..</a></h6>
-                                    <span class="thumb-product-cat">Fashion</span>
-                                </div>
-                                <ul class="list-inline overflow-h">
-                                    <li class="thumb-product-price line-through">$70.00</li>
-                                    <li class="thumb-product-price">$60.00</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="small-thumb-proudct mb30">
-                            <div class="thumb-product">
-                                <img class="thumb-product-img img-responsive" src="/img/products/pro6.jpg" alt="">
-                                <div class="thumb-product-inner">
-                                    <h6><a href="/product/details">Printed Su..</a></h6>
-                                    <span class="thumb-product-cat">Fashion</span>
-                                </div>
-                                <ul class="list-inline overflow-h">
+                                    <li class="thumb-product-price line-through">$75.00</li>
                                     <li class="thumb-product-price">$65.00</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-
                     <!-- END SIDE-BAR PRODUCT WIDGET -->
-
-
-
                 </div>
             </aside>
 
@@ -131,8 +94,8 @@
                 <div class="row  hidden-xs">
                     <div class="toolbar">
                         <div class="col-sm-4 category-num">
-                            <h2>Men</h2>
-                            <small class="category-num-coun">9 Results</small>
+                            <h2>Found</h2>
+                            <small class="category-num-coun"><%= count %> Items</small>
                         </div>
                     </div>
                     <div class="col-sm-8">
@@ -175,152 +138,36 @@
 
                 <div class="category-products col-grid-style">
                     <div class="row clearfix">
-                        <div class="row clearfix">
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro2.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro1.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
+                      <div class="row clearfix">
+                        <%
+                          products.forEach(function(p,a) {
+                        %>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                          <div class="products grid-product mb30">
+                            <div class="product-grid-inner">
+                              <div class="product-grid-img">
+                                <ul class="product-labels">
+                                  <li>Sale</li>
+                                </ul>
+                                <a href="/product/view/<%= p._id %>" class="product-grid-img-thumbnail">
+                                  <img src="<%= p.featuredImg ? '/assets/img/uploads/' + p.featuredImg : '/img/placeholder.png' %>" alt="img" class="img-responsive primary-img" />
+                                  <img src="<%= p.images ? '/assets/img/uploads/' + p.images[1] : '/img/placeholder.png' %>" alt="img" class="img-responsive socendary-img" />
+                                </a>
+                              </div>
 
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro12.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro13.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
-
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro4.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro3.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
-
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro11.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro12.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
-
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro13.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro14.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
-
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-<div class="products grid-product mb30">
-<div class="product-grid-inner">
-<div class="product-grid-img">
-    <ul class="product-labels">
-     <li>Sale</li>
-    </ul>
-    <a href="/product/details" class="product-grid-img-thumbnail">
-        <img src="/img/products/pro1.jpg" alt="img" class="img-responsive primary-img" />
-        <img src="/img/products/pro2.jpg" alt="img" class="img-responsive socendary-img" />
-    </a>
-</div>
-
-<div class="product-grid-caption text-center">
-<h6><a class="p-grid-title" href="/product/details">Printed Summer Dress</a></h6>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-<div class="pro-size"><span>XL / XXL / S </span></div>
- <span class="price clearfix"><span class="old-price">$ 150,00</span> $ <span class="special-price">99,99</span></span>
-<a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-</div>
-</div>
-</div>
-</div>
-
-    </div>
-
-
+                              <div class="product-grid-caption text-center">
+                                <h6><a class="p-grid-title" href="/product/details"><%= p.title %></a></h6>
+                                <p><%= p.productDesc %></p>
+                                <span class="price clearfix"> Nrs. <span class="special-price"><%= p.price %></span></span>
+                                <a class="btn btn-product cd-cart-btn" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <% }); %>
+                      </div>
                     </div>
-                </div>
+                  </div>
 
             </div>
         </div>

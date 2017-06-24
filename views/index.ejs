@@ -58,6 +58,7 @@
                                             </ul>
                                             <a href="/product/view/<%= p._id %>" class="product-grid-img-thumbnail">
                                                 <img src="<%= p.featuredImg ? '/assets/img/uploads/' + p.featuredImg : '/img/placeholder.png' %>" alt="img" class="img-responsive primary-img" />
+                                                <img src="<%= p.images ? '/assets/img/uploads/' + p.images[1] : '/img/placeholder.png' %>" alt="img" class="img-responsive socendary-img" />
                                             </a>
                                             <div class="product-grid-atb text-center"><i class="fa fa-shopping-cart"></i><a class="" href="/users/cart">Add to Cart</a></div>
                                         </div>
