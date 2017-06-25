@@ -3,7 +3,7 @@
            <div class="container">
                <div class="row">
                    <div class="col-sm-12 text-center">
-                       <h1 class="title"><span>Login Now</span></h1>
+                       <h1 class="title"><span>Member Login</span></h1>
                    </div>
                </div>
            </div>
@@ -36,7 +36,9 @@
                                          <input type="password"  required="required" name="password" placeholder="Password" id="password">
                                      </label>
                                  </div>
-                                 <button type="submit" class="form-btn" onsubmit="">Login</button>
+                                 <button type="submit" class="form-btn" onsubmit="">Login</button><br>
+                                 <br>
+                                 <a data-toggle="modal" data-target="#forgotPassword" href="#">Forgot Password?</a>
                              </form>
                          </div>
                      </div>
@@ -76,3 +78,27 @@
            </div>
        </div>
        <!--End Suvbscribe -->
+
+       <!-- Modal -->
+<div id="forgotPassword" style="margin-top:50px;" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Recover Password</h4>
+      </div>
+      <div class="modal-body">
+          <form id="frmForgotPassword" method="Post" action="/users/forgot-password">
+              <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" placeholder="Enter your email to recover password" name="email" id="email" required="required">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+      </div>
+    </div>
+
+  </div>
+</div>

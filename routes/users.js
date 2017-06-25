@@ -11,7 +11,19 @@ const dashboardLayoutData = {
   layout: 'layouts/dashboard'
 };
 
-var sendEmail = function (dest,name,id) {
+var sendEmail = function (dest,name,uniqueId,purpose) {
+  var content,sub;
+  if(purpose === 'signup') {
+    sub = 'User registration ✔';
+    content = '<b>Congratulations '+ name +', you have been registered to Online Store.</b><br><a href="http://localhost:4321">Click here to start shopping!</a>' // html body
+  } else if(purpose === 'forgotPass') {
+    sub = 'Forgot Password Recovery ✔';
+    content = '<b>Hi '+ name +', you have made a request to recover password.</b><br><a href="http://localhost:4321/users/forgot/'+ uniqueId +'">Click here to reset your password</a>' // html body
+  }
+  else {
+    sub = 'Check Email✔';
+    content === 'No purpose sent!'
+  }
     // create reusable transporter object using the default SMTP transport
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -25,9 +37,9 @@ var sendEmail = function (dest,name,id) {
     var mailOptions = {
         from: 'binod@rumsan.com', // sender address
         to: dest, // list of receivers
-        subject: 'User registration ✔', // Subject line
+        subject: sub, // Subject line
        // text: message, // plain text body
-        html: '<b>Congratulations '+ name +', you have been registered to Online Store.</b><br><a href="http://localhost:4321">Click here to start shopping!</a>' // html body
+        html: content
     };
 
     // send mail with defined transport object
@@ -52,6 +64,13 @@ router.get('/login',function (req,res) {
         title: 'Login - Online Store'
     },
         res.render('user/login',data);
+});
+
+router.get('/forgot/:id',function (req,res) {
+    data = {
+        title: 'User - Reset Password'
+    },
+        res.render('user/resetPassword',data);
 });
 
 router.get('/cart',function (req,res) {
@@ -104,7 +123,7 @@ router.post('/signup',function (req,res) {
                   req.flash('error', 'Oops Something went wrong! Please try again');
                   res.redirect('/users/signup');
                 } else {
-                    sendEmail(doc.email,doc.firstName,doc._id);
+                    sendEmail(doc.email,doc.firstName,doc._id,'signup');
                     req.flash('success', 'Congratulations, Your account has been successfully created. Please Login to continue!');
                     res.redirect('/users/login');
                 // /    res.json({success:true,msg:'User added successfully',result:doc})
@@ -129,6 +148,7 @@ router.post('/login',function (req,res) {
         }
         Users.comparePassword(users.password,doc.password,function (err,isMatch) {
             if(err) throw err;
+            console.log(isMatch);
             if(isMatch){
               req.session.userId = doc._id;
               req.session.user = doc;
@@ -158,6 +178,42 @@ router.get('/profile/:id',function (req,res) {
             res.json({success:true,msg:'Success',result:doc})
         }
     });
+});
+
+router.post('/forgot-password', (req,res) => {
+  Users.findOne({'email' : req.body.email}, function(err,user) {
+    if(err){
+      req.flash('error', 'Your email is not registered to our system!');
+      res.redirect('/users/login');
+    } else {
+      sendEmail(req.body.email,user.firstName,user._id,'forgotPass');
+      req.flash('success', 'SUCCESS, An email has been sent to you. Please check your email to reset password!');
+      res.redirect('/users/login');
+    }
+  });
+});
+
+router.post('/reset-password', (req,res) => {
+  const existUser = {
+       id : req.body.userId,
+       password : req.body.password
+  }
+  Users.findOne({'_id' : existUser.id}, function(err,user) {
+    if(err){
+      req.flash('error', 'Your account is not registered in our system!');
+      res.redirect('/users/login');
+    } else {
+          Users.resetPassword(existUser,function (err,doc) {
+          console.log('doc' + doc);
+          if(err){
+            res.json({success : false, msg : 'Error occured,try again!'});
+          } else {
+            req.flash('success', 'Your password has been reset successfully, please login.');
+            res.redirect('/users/login');
+          }
+      })
+    }
+  });
 });
 
 router.post('/update/:id',function (req,res) {
