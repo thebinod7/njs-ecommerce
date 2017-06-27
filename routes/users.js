@@ -101,6 +101,13 @@ router.get('/dashboard',auth,function (req,res) {
   });
 });
 
+router.get('/account',auth,function (req,res) {
+  const data = Object.assign(dashboardLayoutData, {
+        title:  'User - Dashboard'
+      });
+      res.render('user/changePassword', data);
+});
+
 router.post('/signup',function (req,res) {
     console.log(req.body);
     var newUser = new Users({
@@ -161,6 +168,40 @@ router.post('/login',function (req,res) {
             }
         });
     });
+});
+
+router.post('/changePassword',(req,res) => {
+    const existUser = {
+         password : req.body.oldPassword,
+         newPassword : req.body.newPassword,
+         id : req.session.userId
+    }
+    Users.findById({_id : existUser.id},function (err,isUser) {
+        if(err) throw err;
+        if(isUser){
+            Users.comparePassword(existUser.password,isUser.password,function (err,isMatch) {
+                console.log('Match:' + isMatch);
+                if(err) throw err;
+                if(isMatch){
+                    Users.changePassword(existUser,function (err,doc) {
+                        if(err){
+                            res.json({success : false, msg : 'Error occured,try again!'});
+                        } else {
+                          req.flash('success', 'SUCCESS, Password has been updated successfully please login');
+                          res.redirect('/users/logout');
+                        }
+                    })
+                }
+                else {
+                  req.flash('error', 'ERROR, Wrong old password!');
+                  res.redirect('/users/account');
+                }
+            });
+        } else {
+          req.flash('error', 'Oops! Something went wrong. Please try again.');
+          res.redirect('/users/account');
+        }
+    })
 });
 
 router.get('/logout', (req, res) => {
